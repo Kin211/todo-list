@@ -33,10 +33,19 @@
 class TodoItem {
     constructor(name) {
         this.name = name;
+        this.completed = false;
     }
 
-    get Name(){
+    get name(){
         return this.name;
+    }
+
+    get completed(){
+        return this.completed;
+    }
+
+    toggleCompleted(){
+        this.completed = !this.completed;
     }
 }
 
@@ -82,9 +91,17 @@ class TodoList extends Component {
 
     render() {
         const renderedTasks = this.state.tasks.map((item) => {
+            const labelStyle = item.completed ? "color: gray;" : "";
             return createElement("li", {}, [
-                createElement("input", {type: "checkbox"}),
-                createElement("label", {}, item.name),
+                createElement("input", {type: "checkbox"},
+                    null,
+                    {
+                        change: () => {
+                            item.toggleCompleted();
+                            this.update();
+                        }
+                    }),
+                createElement("label", {style: labelStyle}, item.name),
                 createElement("button", {}, "🗑️"),
             ]);
         });
