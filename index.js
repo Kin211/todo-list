@@ -57,7 +57,7 @@ class TodoList extends Component {
         const renderedTasks = this.state.tasks.map((item) => {
             return createElement("li", {}, [
                 createElement("input", {type: "checkbox"}),
-                createElement("label", {}, "Сделать домашку"),
+                createElement("label", {}, item.name),
                 createElement("button", {}, "🗑️"),
             ])
         })
