@@ -24,10 +24,17 @@
     return element;
 }
 
-class Component {
-    constructor() {
+class TodoItem {
+    constructor(name) {
+        this.name = name;
     }
 
+    get Name(){
+        return this.name;
+    }
+}
+
+class Component {
     getDomNode() {
         this._domNode = this.render();
         return this._domNode;
@@ -35,9 +42,25 @@ class Component {
 }
 
 class TodoList extends Component {
-    state = {};
+    constructor() {
+        super();
+        this.state = {
+            tasks : [
+                new TodoItem("Сделать домашку"),
+                new TodoItem("Сделать практику"),
+                new TodoItem("Пойти домой"),
+            ]
+        };
+    }
 
     render() {
+        const renderedTasks = this.state.tasks.map((item) => {
+            return createElement("li", {}, [
+                createElement("input", {type: "checkbox"}),
+                createElement("label", {}, "Сделать домашку"),
+                createElement("button", {}, "🗑️"),
+            ])
+        })
         return createElement("div", {class: "todo-list"}, [
             createElement("h1", {}, "TODO List"),
             createElement("div", {class: "add-todo"}, [
@@ -47,26 +70,9 @@ class TodoList extends Component {
                     placeholder: "Задание",
                 }),
                 createElement("button", {id: "add-btn"}, "+"),
-            ]),
-            createElement("ul", {id: "todos"}, [
-                createElement("li", {}, [
-                    createElement("input", {type: "checkbox"}),
-                    createElement("label", {}, "Сделать домашку"),
-                    createElement("button", {}, "🗑️")
-                ]),
-                createElement("li", {}, [
-                    createElement("input", {type: "checkbox"}),
-                    createElement("label", {}, "Сделать практику"),
-                    createElement("button", {}, "🗑️")
-                ]),
-                createElement("li", {}, [
-                    createElement("input", {type: "checkbox"}),
-                    createElement("label", {}, "Пойти домой"),
-                    createElement("button", {}, "🗑️")
-                ]),
-            ]),
-        ]);
-    }
+            ]), createElement("ul", {id : "todos"}, renderedTasks) 
+        ])
+    }    
 }
 
 document.addEventListener("DOMContentLoaded", () => {
