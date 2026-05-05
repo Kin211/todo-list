@@ -78,7 +78,6 @@ class TodoList extends Component {
 
     onAddInputChange(event){
         this.state.newTaskInput = event.target.value; 
-        this.update();
     }
 
     render() {
