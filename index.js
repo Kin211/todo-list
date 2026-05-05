@@ -154,8 +154,8 @@ class TodoList extends Component {
     }
 
     onDeleteTask(elemName){
-
-        this.state.tasks = this.state.tasks.filter(task => task.name !== elemName);
+        this.state.tasks.splice(this.state.tasks.findIndex((elem) => elem.name === elemName), 1)
+        // this.state.tasks = this.state.tasks.filter(task => task.name !== elemName);
         this.update();
     }
 
