@@ -36,11 +36,11 @@ class TodoItem {
         this.completed = false;
     }
 
-    get name(){
+    get Name(){
         return this.name;
     }
 
-    get completed(){
+    get Completed(){
         return this.completed;
     }
 
@@ -98,7 +98,8 @@ class TodoList extends Component {
         const renderedTasks = this.state.tasks.map((item) => {
             const labelStyle = item.completed ? "color: gray;" : "";
             return createElement("li", {}, [
-                createElement("input", {type: "checkbox"},
+                createElement("input", 
+                    !item.completed ? {type: "checkbox"} : {type: "checkbox", checked: "adfdsfsf"},
                     null,
                     {
                         change: () => {
