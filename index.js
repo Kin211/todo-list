@@ -21,9 +21,9 @@
         element.appendChild(children);
     }
 
-    if (Array.isArray(callbacks)) {
-        Object.keys(callbacks).forEach((callback) => {
-
+    if (callbacks) {
+        Object.keys(callbacks).forEach((eventName) => {
+            element.addEventListener(eventName, callbacks[eventName]);
         })
     }
 
