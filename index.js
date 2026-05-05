@@ -89,6 +89,11 @@ class TodoList extends Component {
         this.state.newTaskInput = event.target.value; 
     }
 
+    onDeleteTask(elemName){
+        this.state.tasks = this.state.tasks.filter(task => task.name !== elemName);
+        this.update();
+    }
+
     render() {
         const renderedTasks = this.state.tasks.map((item) => {
             const labelStyle = item.completed ? "color: gray;" : "";
