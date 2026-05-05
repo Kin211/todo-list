@@ -58,8 +58,19 @@ class TodoList extends Component {
                 new TodoItem("Сделать домашку"),
                 new TodoItem("Сделать практику"),
                 new TodoItem("Пойти домой"),
-            ]
+            ],
+            newTaskInput: "",
         };
+    }
+
+    onAddTask(){
+        if (this.state.newTaskInput.trim() !== ""){
+            this.state.tasks.push(new TodoItem(this.state.newTaskInput));
+        }
+    }
+
+    onAddInputChange(event){
+        this.state.newTaskInput = event.target.value;
     }
 
     render() {
@@ -68,8 +79,8 @@ class TodoList extends Component {
                 createElement("input", {type: "checkbox"}),
                 createElement("label", {}, item.name),
                 createElement("button", {}, "🗑️"),
-            ])
-        })
+            ]);
+        });
         return createElement("div", {class: "todo-list"}, [
             createElement("h1", {}, "TODO List"),
             createElement("div", {class: "add-todo"}, [
@@ -77,19 +88,17 @@ class TodoList extends Component {
                     id: "new-todo",
                     type: "text",
                     placeholder: "Задание",
+                    value : this.state.newTaskInput,
+                }, null, {
+                    input: this.onAddInputChange.bind(this)
                 }),
-                createElement("button", {id: "add-btn"}, "+"),
-            ]), createElement("ul", {id : "todos"}, renderedTasks)
+                createElement("button", {id: "add-btn"}, "+", {
+                    click: this.onAddTask.bind(this)
+                },
+                ),
+            ]), createElement("ul", {id : "todos"}, renderedTasks) 
         ])
-    }
-
-    onAddTask() {
-
-    }
-
-    onAddInputChange() {
-
-    }
+    }    
 }
 
 document.addEventListener("DOMContentLoaded", () => {
