@@ -54,14 +54,22 @@ class TodoList extends Component {
         };
     }
 
+    update(){
+        const newDom = this.render();
+        this._domNode.replaceWith(newDom);
+        this._domNode = newDom;
+    }
+
     onAddTask(){
         if (this.state.newTaskInput.trim() !== ""){
             this.state.tasks.push(new TodoItem(this.state.newTaskInput));
+            this.update();
         }
     }
 
     onAddInputChange(event){
         this.state.newTaskInput = event.target.value; 
+        this.update();
     }
 
     render() {
@@ -93,5 +101,7 @@ class TodoList extends Component {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    document.body.appendChild(new TodoList().getDomNode());
+    const todoList = new TodoList();
+    const domNode = todoList.getDomNode();
+    document.body.appendChild(domNode);
 });
