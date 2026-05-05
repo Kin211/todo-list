@@ -65,6 +65,16 @@ class Task extends Component{
         this.item = item;
         this.onDelete = onDelete;
         this.onToggle = onToggle;
+        this.isDelete = false;
+    }
+
+    handleDeleteClick(event) {
+        if (!this.isDelete) {
+            this.isDelete = true;
+            event.target.style.background = "red";
+            return;
+        }
+        this.onDelete(this.item.name);
     }
 
     render(){
@@ -80,7 +90,7 @@ class Task extends Component{
                 }),
             createElement("label", {style: labelStyle}, this.item.name),
             createElement("button", {}, "🗑️", {
-                click: () => this.onDelete(this.item.name)
+                click: (e) => this.handleDeleteClick(e)
             }),
         ]);
     }
@@ -144,6 +154,7 @@ class TodoList extends Component {
     }
 
     onDeleteTask(elemName){
+
         this.state.tasks = this.state.tasks.filter(task => task.name !== elemName);
         this.update();
     }
