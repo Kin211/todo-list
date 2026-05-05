@@ -1,4 +1,4 @@
-﻿function createElement(tag, attributes, children) {
+﻿function createElement(tag, attributes, children, ...callbacks) {
     const element = document.createElement(tag);
 
     if (attributes) {
@@ -19,6 +19,10 @@
         element.appendChild(document.createTextNode(children));
     } else if (children instanceof HTMLElement) {
         element.appendChild(children);
+    }
+
+    for (let callback of callbacks) {
+        callback(element);
     }
 
     return element;
@@ -66,6 +70,14 @@ class TodoList extends Component {
                 ]),
             ]),
         ]);
+    }
+
+    onAddTask() {
+
+    }
+
+    onAddInputChange() {
+
     }
 }
 
