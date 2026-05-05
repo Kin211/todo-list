@@ -1,4 +1,4 @@
-﻿function createElement(tag, attributes, children) {
+﻿function createElement(tag, attributes, children, callbacks = {}) {
     const element = document.createElement(tag);
 
     if (attributes) {
@@ -21,6 +21,12 @@
         element.appendChild(children);
     }
 
+    if (callbacks) {
+        Object.keys(callbacks).forEach((eventName) => {
+            element.addEventListener(eventName, callbacks[eventName]);
+        })
+    }
+
     return element;
 }
 
@@ -35,6 +41,9 @@ class TodoItem {
 }
 
 class Component {
+    constructor() {
+    }
+
     getDomNode() {
         this._domNode = this.render();
         return this._domNode;
